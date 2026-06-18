@@ -1,0 +1,32 @@
+---
+description: Low-fi concepts must use ONLY the SDS design system, tokens, and components
+globs: concepts/**
+alwaysApply: false
+---
+
+# Concepts: SDS-only design system
+
+Every file under `concepts/**` is an isolated low-fidelity concept environment. All
+of them share, and MUST exclusively use, the Simple Design System (SDS) in this repo.
+
+The full, authoritative rules live in [`design.md`](mdc:design.md). Follow them
+exactly. Summary of the hard constraints:
+
+- **Components:** import only from `primitives`, `compositions`, `layout`, and
+  `icons` (the aliases in `vite.config.ts`, resolving to `src/ui/*`). Never create
+  or restyle components. Never import `@react-aria`/`@react-stately` directly, and
+  never use third-party UI kits (MUI, Chakra, Bootstrap, Tailwind, shadcn, etc.).
+- **Color:** use semantic SDS role tokens only — `var(--sds-color-text-*)`,
+  `var(--sds-color-background-*)`, `var(--sds-color-border-*)`,
+  `var(--sds-color-icon-*)`. Never hardcode hex/rgb/hsl/named colors and never use
+  the raw ramps (e.g. `--sds-color-gray-500`) directly.
+- **Spacing / radius / size:** `var(--sds-size-space-*)`, `var(--sds-size-radius-*)`,
+  `var(--sds-size-icon-*)` only. No arbitrary px/rem.
+- **Typography:** SDS text components (`TextHeading`, `Text`, `TextSmall`, …) and
+  `var(--sds-typography-*)` tokens only. No raw font-size/family/weight.
+- **Layout:** use `Flex`, `Section`, `Grid`. Never write custom fl/grid/absolute CSS.
+- **No new assets:** no new icons, fonts, or images. Use existing `icons`/`images`.
+
+If a concept needs something SDS does not provide: **stop and ask** — do not build
+outside the system. Concepts must stay isolated from each other; only the shared
+`src/` SDS source is common between them.
